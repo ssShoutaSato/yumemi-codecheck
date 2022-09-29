@@ -11,6 +11,7 @@ import io.ktor.client.engine.android.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import jp.co.yumemi.android.code_check.MainActivity.Companion.lastSearchDate
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -28,6 +29,8 @@ class SearchViewModel : ViewModel() {
      * @param inputText The text for search.
      * @return The list of search results.
      */
+    @Suppress("OPT_IN_IS_NOT_ENABLED")
+    @OptIn(DelicateCoroutinesApi::class)
     fun searchResults(inputText: String): List<RepositoryInformation> = runBlocking {
         val client = HttpClient(Android)
 
