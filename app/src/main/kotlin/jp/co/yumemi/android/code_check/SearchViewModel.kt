@@ -20,9 +20,15 @@ import org.json.JSONObject
 import java.util.*
 
 /**
- * TwoFragment で使う
+ * This viewmodel for searching.
  */
 class SearchViewModel(val context: Context) : ViewModel() {
+    /**
+     * Search repository with the text of argument.
+     *
+     * @param inputText The text for search.
+     * @return The list of search results.
+     */
     fun searchResults(inputText: String): List<RepositoryInformation> = runBlocking {
         val client = HttpClient(Android)
 
@@ -65,6 +71,17 @@ class SearchViewModel(val context: Context) : ViewModel() {
     }
 }
 
+/**
+ * An information of repository.
+ *
+ * @param name The repository name.
+ * @param ownerIconUrl An ownerIcon url of repository.
+ * @param language The language of repository.
+ * @param stargazersCount The count of stargazers.
+ * @param watchersCount The count of watchers.
+ * @param forksCount The count of fork.
+ * @param openIssuesCount The count of issues.
+ */
 @Parcelize
 data class RepositoryInformation(
     val name: String,

@@ -14,7 +14,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
 import jp.co.yumemi.android.code_check.databinding.FragmentSearchBinding
 
+/**
+ * This fragment for displaying the search result.
+ */
 class SearchFragment : Fragment(R.layout.fragment_search) {
+    /**
+     * [Fragment.onViewCreated]
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -47,6 +53,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
+    /**
+     * Navigate to the repository information fragment.
+     *
+     * @param repositoryInformation An item to display on repository information fragment.
+     */
     fun gotoRepositoryFragment(repositoryInformation: RepositoryInformation) {
         val _action =
             SearchFragmentDirections.actionRepositoriesFragmentToRepositoryFragment(repositoryInformation = repositoryInformation)
@@ -64,22 +75,44 @@ val diff_util = object : DiffUtil.ItemCallback<RepositoryInformation>() {
     }
 }
 
+/**
+ * This adapter for displaying a list of search results.
+ *
+ * Notify that an item has been clicked with [OnItemClickListener.itemClick].
+ *
+ * @param itemClickListener The listener for notifying that an item has been clicked.
+ */
 class CustomAdapter(private val itemClickListener: OnItemClickListener) :
     ListAdapter<RepositoryInformation, CustomAdapter.ViewHolder>(diff_util) {
+    /**
+     * [ListAdapter.onCreateViewHolder]
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val _view = LayoutInflater.from(parent.context).inflate(R.layout.layout_item, parent, false)
         return ViewHolder(_view)
     }
 
+    /**
+     * [ListAdapter.onBindViewHolder]
+     */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val _item = getItem(position)
         (holder.itemView.findViewById<View>(R.id.repositoryNameView) as TextView).text = _item.name
         holder.itemView.setOnClickListener { itemClickListener.itemClick(_item) }
     }
 
+    /**
+     * This class for holding the view displayed in the list.
+     */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
+    /**
+     * The listener for notifying that an item has been clicked.
+     */
     interface OnItemClickListener {
+        /**
+         * Notify that item is clicked.
+         */
         fun itemClick(item: RepositoryInformation)
     }
 }

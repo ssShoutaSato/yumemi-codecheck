@@ -12,15 +12,21 @@ import coil.load
 import jp.co.yumemi.android.code_check.MainActivity.Companion.lastSearchDate
 import jp.co.yumemi.android.code_check.databinding.FragmentRepositoryInformationBinding
 
+/**
+ * This fragment for displaying the repository information.
+ */
 class RepositoryInformationFragment : Fragment(R.layout.fragment_repository_information) {
     private val args: RepositoryInformationFragmentArgs by navArgs()
     private var binding: FragmentRepositoryInformationBinding? = null
     private val _binding get() = binding!!
 
+    /**
+     * [Fragment.onViewCreated]
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("検索した日時", lastSearchDate.toString())
+        Log.d("Search date : ", lastSearchDate.toString())
 
         binding = FragmentRepositoryInformationBinding.bind(view)
 
