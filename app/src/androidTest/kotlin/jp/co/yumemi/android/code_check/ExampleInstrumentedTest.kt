@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2021 YUMEMI Inc. All rights reserved.
+ */
+
 package jp.co.yumemi.android.code_check
 
 import androidx.test.platform.app.InstrumentationRegistry
