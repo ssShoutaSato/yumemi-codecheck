@@ -66,7 +66,7 @@ class SearchViewModel : ViewModel() {
                 )
             }
 
-            lastSearchDate = Date()
+            lastSearchDate.time = Date().time
 
             return@async list.toList()
         }.await()
