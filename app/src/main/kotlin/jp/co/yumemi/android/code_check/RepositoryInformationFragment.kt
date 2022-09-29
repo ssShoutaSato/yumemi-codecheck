@@ -32,12 +32,12 @@ class RepositoryInformationFragment : Fragment(R.layout.fragment_repository_info
 
         var info = args.repositoryInformation
 
-        _binding.ownerIconView.load(info.ownerIconUrl);
-        _binding.nameView.text = info.name;
-        _binding.languageView.text = info.language;
-        _binding.starsView.text = "${info.stargazersCount} stars";
-        _binding.watchersView.text = "${info.watchersCount} watchers";
-        _binding.forksView.text = "${info.forksCount} forks";
-        _binding.openIssuesView.text = "${info.openIssuesCount} open issues";
+        _binding.ownerIconView.load(info.ownerIconUrl)
+        _binding.nameView.text = info.name
+        _binding.languageView.text = info.language
+        _binding.starsView.text = "${info.stargazersCount} stars"
+        _binding.watchersView.text = "${info.watchersCount} watchers"
+        _binding.forksView.text = "${info.forksCount} forks"
+        _binding.openIssuesView.text = "${info.openIssuesCount} open issues"
     }
 }
