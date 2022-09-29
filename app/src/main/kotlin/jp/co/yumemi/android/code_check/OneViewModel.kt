@@ -22,10 +22,7 @@ import java.util.*
 /**
  * TwoFragment で使う
  */
-class OneViewModel(
-    val context: Context
-) : ViewModel() {
-
+class OneViewModel(val context: Context) : ViewModel() {
     // 検索結果
     fun searchResults(inputText: String): List<item> = runBlocking {
         val client = HttpClient(Android)
@@ -37,9 +34,7 @@ class OneViewModel(
             }
 
             val jsonBody = JSONObject(response.receive<String>())
-
             val jsonItems = jsonBody.optJSONArray("items")!!
-
             val items = mutableListOf<item>()
 
             /**

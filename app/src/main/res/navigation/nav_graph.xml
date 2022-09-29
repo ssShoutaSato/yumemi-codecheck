@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
     app:startDestination="@id/oneFragment">
-
     <fragment
         android:id="@+id/oneFragment"
         android:name="jp.co.yumemi.android.code_check.OneFragment"
@@ -14,7 +13,6 @@
             android:id="@+id/action_repositoriesFragment_to_repositoryFragment"
             app:destination="@id/twoFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/twoFragment"
         android:name="jp.co.yumemi.android.code_check.TwoFragment"
@@ -24,5 +22,4 @@
             android:name="item"
             app:argType="jp.co.yumemi.android.code_check.item" />
     </fragment>
-
 </navigation>

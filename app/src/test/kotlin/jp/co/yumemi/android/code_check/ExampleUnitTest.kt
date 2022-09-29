@@ -1,7 +1,6 @@
 package jp.co.yumemi.android.code_check
 
 import org.junit.Test
-
 import org.junit.Assert.*
 
 /**
