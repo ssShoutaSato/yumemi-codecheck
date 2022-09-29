@@ -3,26 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/oneFragment">
-
+    app:startDestination="@id/searchFragment">
     <fragment
-        android:id="@+id/oneFragment"
-        android:name="jp.co.yumemi.android.code_check.OneFragment"
+        android:id="@+id/searchFragment"
+        android:name="jp.co.yumemi.android.code_check.SearchFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_one">
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_repositoriesFragment_to_repositoryFragment"
-            app:destination="@id/twoFragment" />
+            app:destination="@id/repositoryInformationFragment" />
     </fragment>
-
     <fragment
-        android:id="@+id/twoFragment"
-        android:name="jp.co.yumemi.android.code_check.TwoFragment"
+        android:id="@+id/repositoryInformationFragment"
+        android:name="jp.co.yumemi.android.code_check.RepositoryInformationFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_two">
+        tools:layout="@layout/fragment_repository_information">
         <argument
-            android:name="item"
-            app:argType="jp.co.yumemi.android.code_check.item" />
+            android:name="repositoryInformation"
+            app:argType="jp.co.yumemi.android.code_check.RepositoryInformation" />
     </fragment>
-
 </navigation>

@@ -11,7 +11,7 @@ import io.ktor.client.call.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import jp.co.yumemi.android.code_check.TopActivity.Companion.lastSearchDate
+import jp.co.yumemi.android.code_check.MainActivity.Companion.lastSearchDate
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -20,14 +20,16 @@ import org.json.JSONObject
 import java.util.*
 
 /**
- * TwoFragment で使う
+ * This viewmodel for searching.
  */
-class OneViewModel(
-    val context: Context
-) : ViewModel() {
-
-    // 検索結果
-    fun searchResults(inputText: String): List<item> = runBlocking {
+class SearchViewModel(val context: Context) : ViewModel() {
+    /**
+     * Search repository with the text of argument.
+     *
+     * @param inputText The text for search.
+     * @return The list of search results.
+     */
+    fun searchResults(inputText: String): List<RepositoryInformation> = runBlocking {
         val client = HttpClient(Android)
 
         return@runBlocking GlobalScope.async {
@@ -37,14 +39,8 @@ class OneViewModel(
             }
 
             val jsonBody = JSONObject(response.receive<String>())
-
             val jsonItems = jsonBody.optJSONArray("items")!!
-
-            val items = mutableListOf<item>()
-
-            /**
-             * アイテムの個数分ループする
-             */
+            val list = mutableListOf<RepositoryInformation>()
             for (i in 0 until jsonItems.length()) {
                 val jsonItem = jsonItems.optJSONObject(i)!!
                 val name = jsonItem.optString("full_name")
@@ -55,8 +51,8 @@ class OneViewModel(
                 val forksCount = jsonItem.optLong("forks_conut")
                 val openIssuesCount = jsonItem.optLong("open_issues_count")
 
-                items.add(
-                    item(
+                list.add(
+                    RepositoryInformation(
                         name = name,
                         ownerIconUrl = ownerIconUrl,
                         language = context.getString(R.string.written_language, language),
@@ -70,13 +66,24 @@ class OneViewModel(
 
             lastSearchDate = Date()
 
-            return@async items.toList()
+            return@async list.toList()
         }.await()
     }
 }
 
+/**
+ * An information of repository.
+ *
+ * @param name The repository name.
+ * @param ownerIconUrl An ownerIcon url of repository.
+ * @param language The language of repository.
+ * @param stargazersCount The count of stargazers.
+ * @param watchersCount The count of watchers.
+ * @param forksCount The count of fork.
+ * @param openIssuesCount The count of issues.
+ */
 @Parcelize
-data class item(
+data class RepositoryInformation(
     val name: String,
     val ownerIconUrl: String,
     val language: String,

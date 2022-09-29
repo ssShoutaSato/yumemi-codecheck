@@ -1,11 +1,13 @@
+/*
+ * Copyright © 2021 YUMEMI Inc. All rights reserved.
+ */
+
 package jp.co.yumemi.android.code_check
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
 import org.junit.Test
 import org.junit.runner.RunWith
-
 import org.junit.Assert.*
 
 /**
