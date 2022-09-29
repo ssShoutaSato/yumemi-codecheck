@@ -3,7 +3,6 @@
  */
 package jp.co.yumemi.android.code_check
 
-import android.content.Context
 import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import io.ktor.client.*
@@ -22,7 +21,7 @@ import java.util.*
 /**
  * This viewmodel for searching.
  */
-class SearchViewModel(val context: Context) : ViewModel() {
+class SearchViewModel : ViewModel() {
     /**
      * Search repository with the text of argument.
      *
@@ -55,7 +54,7 @@ class SearchViewModel(val context: Context) : ViewModel() {
                     RepositoryInformation(
                         name = name,
                         ownerIconUrl = ownerIconUrl,
-                        language = context.getString(R.string.written_language, language),
+                        language = language,
                         stargazersCount = stargazersCount,
                         watchersCount = watchersCount,
                         forksCount = forksCount,

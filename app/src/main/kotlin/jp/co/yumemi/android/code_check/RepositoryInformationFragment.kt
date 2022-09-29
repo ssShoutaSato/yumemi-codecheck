@@ -32,7 +32,7 @@ class RepositoryInformationFragment : Fragment(R.layout.fragment_repository_info
 
         binding.ownerIconView.load(info.ownerIconUrl)
         binding.nameView.text = info.name
-        binding.languageView.text = info.language
+        binding.languageView.text = getString(R.string.written_language, info.language)
         binding.starsView.text = getString(R.string.stars, info.stargazersCount.toString())
         binding.watchersView.text = getString(R.string.watchers, info.watchersCount.toString())
         binding.forksView.text = getString(R.string.forks, info.forksCount.toString())
