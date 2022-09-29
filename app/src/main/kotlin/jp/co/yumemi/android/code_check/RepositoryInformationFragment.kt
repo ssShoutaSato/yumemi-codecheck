@@ -17,8 +17,6 @@ import jp.co.yumemi.android.code_check.databinding.FragmentRepositoryInformation
  */
 class RepositoryInformationFragment : Fragment(R.layout.fragment_repository_information) {
     private val args: RepositoryInformationFragmentArgs by navArgs()
-    private var binding: FragmentRepositoryInformationBinding? = null
-    private val _binding get() = binding!!
 
     /**
      * [Fragment.onViewCreated]
@@ -28,16 +26,16 @@ class RepositoryInformationFragment : Fragment(R.layout.fragment_repository_info
 
         Log.d("Search date : ", lastSearchDate.toString())
 
-        binding = FragmentRepositoryInformationBinding.bind(view)
+        val binding = FragmentRepositoryInformationBinding.bind(view)
 
         var info = args.repositoryInformation
 
-        _binding.ownerIconView.load(info.ownerIconUrl)
-        _binding.nameView.text = info.name
-        _binding.languageView.text = info.language
-        _binding.starsView.text = "${info.stargazersCount} stars"
-        _binding.watchersView.text = "${info.watchersCount} watchers"
-        _binding.forksView.text = "${info.forksCount} forks"
-        _binding.openIssuesView.text = "${info.openIssuesCount} open issues"
+        binding.ownerIconView.load(info.ownerIconUrl)
+        binding.nameView.text = info.name
+        binding.languageView.text = info.language
+        binding.starsView.text = "${info.stargazersCount} stars"
+        binding.watchersView.text = "${info.watchersCount} watchers"
+        binding.forksView.text = "${info.forksCount} forks"
+        binding.openIssuesView.text = "${info.openIssuesCount} open issues"
     }
 }
