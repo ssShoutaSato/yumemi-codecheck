@@ -22,8 +22,7 @@ import java.util.*
 /**
  * TwoFragment で使う
  */
-class OneViewModel(val context: Context) : ViewModel() {
-    // 検索結果
+class SearchViewModel(val context: Context) : ViewModel() {
     fun searchResults(inputText: String): List<item> = runBlocking {
         val client = HttpClient(Android)
 
