@@ -23,7 +23,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val _layoutManager = LinearLayoutManager(context!!)
         val _dividerItemDecoration = DividerItemDecoration(context!!, _layoutManager.orientation)
         val _adapter = CustomAdapter(object : CustomAdapter.OnItemClickListener {
-            override fun itemClick(item: item) {
+            override fun itemClick(item: RepositoryInformation) {
                 gotoRepositoryFragment(item)
             }
         })
@@ -47,25 +47,25 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
-    fun gotoRepositoryFragment(item: item) {
+    fun gotoRepositoryFragment(repositoryInformation: RepositoryInformation) {
         val _action =
-            SearchFragmentDirections.actionRepositoriesFragmentToRepositoryFragment(item = item)
+            SearchFragmentDirections.actionRepositoriesFragmentToRepositoryFragment(repositoryInformation = repositoryInformation)
         findNavController().navigate(_action)
     }
 }
 
-val diff_util = object : DiffUtil.ItemCallback<item>() {
-    override fun areItemsTheSame(oldItem: item, newItem: item): Boolean {
+val diff_util = object : DiffUtil.ItemCallback<RepositoryInformation>() {
+    override fun areItemsTheSame(oldItem: RepositoryInformation, newItem: RepositoryInformation): Boolean {
         return oldItem.name == newItem.name
     }
 
-    override fun areContentsTheSame(oldItem: item, newItem: item): Boolean {
+    override fun areContentsTheSame(oldItem: RepositoryInformation, newItem: RepositoryInformation): Boolean {
         return oldItem == newItem
     }
 }
 
 class CustomAdapter(private val itemClickListener: OnItemClickListener) :
-    ListAdapter<item, CustomAdapter.ViewHolder>(diff_util) {
+    ListAdapter<RepositoryInformation, CustomAdapter.ViewHolder>(diff_util) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val _view = LayoutInflater.from(parent.context).inflate(R.layout.layout_item, parent, false)
         return ViewHolder(_view)
@@ -80,6 +80,6 @@ class CustomAdapter(private val itemClickListener: OnItemClickListener) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     interface OnItemClickListener {
-        fun itemClick(item: item)
+        fun itemClick(item: RepositoryInformation)
     }
 }

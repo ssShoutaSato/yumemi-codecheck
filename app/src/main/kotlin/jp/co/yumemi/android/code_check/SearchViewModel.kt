@@ -23,7 +23,7 @@ import java.util.*
  * TwoFragment で使う
  */
 class SearchViewModel(val context: Context) : ViewModel() {
-    fun searchResults(inputText: String): List<item> = runBlocking {
+    fun searchResults(inputText: String): List<RepositoryInformation> = runBlocking {
         val client = HttpClient(Android)
 
         return@runBlocking GlobalScope.async {
@@ -34,11 +34,7 @@ class SearchViewModel(val context: Context) : ViewModel() {
 
             val jsonBody = JSONObject(response.receive<String>())
             val jsonItems = jsonBody.optJSONArray("items")!!
-            val items = mutableListOf<item>()
-
-            /**
-             * アイテムの個数分ループする
-             */
+            val list = mutableListOf<RepositoryInformation>()
             for (i in 0 until jsonItems.length()) {
                 val jsonItem = jsonItems.optJSONObject(i)!!
                 val name = jsonItem.optString("full_name")
@@ -49,8 +45,8 @@ class SearchViewModel(val context: Context) : ViewModel() {
                 val forksCount = jsonItem.optLong("forks_conut")
                 val openIssuesCount = jsonItem.optLong("open_issues_count")
 
-                items.add(
-                    item(
+                list.add(
+                    RepositoryInformation(
                         name = name,
                         ownerIconUrl = ownerIconUrl,
                         language = context.getString(R.string.written_language, language),
@@ -64,13 +60,13 @@ class SearchViewModel(val context: Context) : ViewModel() {
 
             lastSearchDate = Date()
 
-            return@async items.toList()
+            return@async list.toList()
         }.await()
     }
 }
 
 @Parcelize
-data class item(
+data class RepositoryInformation(
     val name: String,
     val ownerIconUrl: String,
     val language: String,
