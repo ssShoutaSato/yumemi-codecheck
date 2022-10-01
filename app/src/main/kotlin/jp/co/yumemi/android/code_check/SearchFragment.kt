@@ -25,9 +25,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentSearchBinding.bind(view)
-        val viewModel = SearchViewModel(context!!)
-        val layoutManager = LinearLayoutManager(context!!)
-        val dividerItemDecoration = DividerItemDecoration(context!!, layoutManager.orientation)
+        val context = requireContext()
+        val viewModel = SearchViewModel()
+        val layoutManager = LinearLayoutManager(context)
+        val dividerItemDecoration = DividerItemDecoration(context, layoutManager.orientation)
         val adapter = CustomAdapter(object : CustomAdapter.OnItemClickListener {
             override fun onItemClicked(item: RepositoryInformation) {
                 navigateToRepositoryInformationFragment(item)
@@ -97,7 +98,10 @@ class CustomAdapter(private val itemClickListener: OnItemClickListener) :
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        (holder.itemView.findViewById<View>(R.id.repositoryNameView) as TextView).text = item.name
+        val view = holder.itemView.findViewById<View>(R.id.repositoryNameView)
+        if (view is TextView) {
+            view.text = item.name
+        }
         holder.itemView.setOnClickListener { itemClickListener.onItemClicked(item) }
     }
 
