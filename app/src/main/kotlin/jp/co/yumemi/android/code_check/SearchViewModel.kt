@@ -4,6 +4,7 @@
 package jp.co.yumemi.android.code_check
 
 import android.os.Parcelable
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import io.ktor.client.*
 import io.ktor.client.call.*
@@ -40,13 +41,23 @@ class SearchViewModel : ViewModel() {
                 parameter("q", inputText)
             }
 
-            val jsonBody = JSONObject(response.receive<String>())
-            val jsonItems = jsonBody.optJSONArray("items")!!
             val list = mutableListOf<RepositoryInformation>()
+            val jsonBody = JSONObject(response.receive<String>())
+            val jsonItems = jsonBody.optJSONArray("items")
+            if (jsonItems == null) {
+                Log.e("SearchViewModel", "Key does not exist in response. : items")
+                return@async list.toList()
+            }
+
             for (i in 0 until jsonItems.length()) {
-                val jsonItem = jsonItems.optJSONObject(i)!!
+                val jsonItem = jsonItems.optJSONObject(i)
                 val name = jsonItem.optString("full_name")
-                val ownerIconUrl = jsonItem.optJSONObject("owner")!!.optString("avatar_url")
+                val owner = jsonItem.optJSONObject("owner")
+                val ownerIconUrl = if (owner == null) {
+                    ""
+                } else {
+                    owner.optString("avatar_url") ?: ""
+                }
                 val language = jsonItem.optString("language")
                 val stargazersCount = jsonItem.optLong("stargazers_count")
                 val watchersCount = jsonItem.optLong("watchers_count")
