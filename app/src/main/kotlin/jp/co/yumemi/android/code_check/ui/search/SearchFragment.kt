@@ -59,7 +59,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
      *
      * @param repositoryInformation An item to display on repository information fragment.
      */
-    fun navigateToRepositoryInformationFragment(repositoryInformation: RepositoryInformation) {
+    private fun navigateToRepositoryInformationFragment(repositoryInformation: RepositoryInformation) {
         val action =
             SearchFragmentDirections.actionRepositoriesFragmentToRepositoryFragment(repositoryInformation = repositoryInformation)
         findNavController().navigate(action)
