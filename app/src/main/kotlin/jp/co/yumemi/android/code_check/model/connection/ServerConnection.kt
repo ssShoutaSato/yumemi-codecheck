@@ -15,7 +15,7 @@ class ServerConnection {
     companion object {
         private const val URL_SEARCH_GIT_REPOSITORY = "https://api.github.com/search/repositories"
         private const val MEDIA_TYPE_ACCEPT = "Accept"
-        private const val MEDIA_TYPE_SEARCH_GIT_REPOSITORY_JSON = "application/vnd.github.v3+json"
+        private const val MEDIA_TYPE_SEARCH_GIT_REPOSITORY_JSON = "application/vnd.github.json"
         private const val KEY_SEARCH_QUERY = "q"
     }
 
