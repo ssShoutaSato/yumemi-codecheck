@@ -52,6 +52,8 @@ class CustomAdapter(private val itemClickListener: OnItemClickListener) :
 
     /**
      * This class for holding the view displayed in the list.
+     *
+     * @param view The view displayed in the list.
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -61,6 +63,8 @@ class CustomAdapter(private val itemClickListener: OnItemClickListener) :
     interface OnItemClickListener {
         /**
          * Notify that item is clicked.
+         *
+         * @param item An item is clicked.
          */
         fun onItemClicked(item: RepositoryInformation)
     }
