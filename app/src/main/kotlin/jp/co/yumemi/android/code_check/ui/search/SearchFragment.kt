@@ -24,10 +24,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
 
         val binding = FragmentSearchBinding.bind(view)
-        val context = requireContext()
         val viewModel = SearchViewModel()
-        val layoutManager = LinearLayoutManager(context)
-        val dividerItemDecoration = DividerItemDecoration(context, layoutManager.orientation)
         val adapter = CustomAdapter(object : CustomAdapter.OnItemClickListener {
             override fun onItemClicked(item: RepositoryInformation) {
                 navigateToRepositoryInformationFragment(item)
@@ -37,19 +34,23 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         binding.searchInputText.setOnEditorActionListener { editText, action, _ ->
             if (action == EditorInfo.IME_ACTION_SEARCH) {
                 editText.text.toString().let {
-                    viewModel.searchResults(it).apply {
-                        adapter.submitList(this)
-                    }
+                    viewModel.search(it)
                 }
                 return@setOnEditorActionListener true
             }
             return@setOnEditorActionListener false
         }
 
+        val context = requireContext()
+        val layoutManager = LinearLayoutManager(context)
         binding.recyclerView.also {
             it.layoutManager = layoutManager
-            it.addItemDecoration(dividerItemDecoration)
+            it.addItemDecoration(DividerItemDecoration(context, layoutManager.orientation))
             it.adapter = adapter
+        }
+
+        viewModel.list.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
         }
     }
 

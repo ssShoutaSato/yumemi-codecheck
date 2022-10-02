@@ -3,6 +3,7 @@
  */
 package jp.co.yumemi.android.code_check.ui.search
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import jp.co.yumemi.android.code_check.model.connection.ServerConnection
 import jp.co.yumemi.android.code_check.model.data.RepositoryInformation
@@ -14,6 +15,8 @@ import kotlinx.coroutines.withContext
  * This viewmodel for searching.
  */
 class SearchViewModel : ViewModel() {
+    val list = MutableLiveData<List<RepositoryInformation>>(mutableListOf())
+
     /**
      * Search repository with the text of argument.
      *
@@ -21,9 +24,9 @@ class SearchViewModel : ViewModel() {
      * @return The list of search results.
      */
     @Suppress("OPT_IN_IS_NOT_ENABLED")
-    fun searchResults(inputText: String): List<RepositoryInformation> = runBlocking {
+    fun search(inputText: String) = runBlocking {
         return@runBlocking withContext(Dispatchers.Default) {
-            ServerConnection().searchGitRepositoryInformation(inputText)
+            list.postValue(ServerConnection().searchGitRepositoryInformation(inputText))
         }
     }
 }
